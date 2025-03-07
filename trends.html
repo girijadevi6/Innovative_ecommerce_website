@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 30px;
+            height: 100vh;
+            background: linear-gradient(to right, #754F23, #F6D8C6);
+        }
+
+        /* Trends container styling */
+        .trends-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .trends-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        /* Each trend card */
+        .trend-card {
+            background: linear-gradient(to bottom, #F6D8C6, #B88E2F);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .trend-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Video styling */
+        .trend-card video {
+            width: 100%;
+            height: 160px;
+            border-radius: 5px;
+        }
+
+        /* Card content styling */
+        .item-info {
+            padding: 10px;
+            text-align: center;
+        }
+
+        .item-info p {
+            font-size: 14px;
+            font-weight: bold;
+            color:white;
+            margin-bottom: 8px;
+        }
+
+        .item-info a {
+            display: inline-block;
+            background: #754F23;
+            color: white;
+            padding: 8px 12px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .item-info a:hover {
+            background: #B88E2F;
+        }
+
+        /* Back link styling */
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: whi;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #B88E2F;
+        }
+        h2{
+            text-align: center;
+            color: #3f2304 ;
+        }
+    </style>
+</head>
+
+<body>
+    <h2 >Styling Hacks - All Videos</h2>
+    <div class="trends-container">
+        {% for trend in trends %}
+        <div class="trend-card">
+            <video controls>
+                <source src="{{ trend[0] }}" type="video/mp4">
+            </video>
+            <div class="item-info">
+                <p>{{ trend[1] }}</p>
+                <a href="{{ trend[2] }}" target="_blank">Buy Now</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <br>
+    <a href="/">Back to Home</a>
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const videos = document.querySelectorAll("video");
+
+        videos.forEach((video) => {
+            video.addEventListener("play", () => {
+                const videoUrl = video.querySelector("source").src;
+
+                fetch("/update_views", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ video_url: videoUrl })
+                });
+            });
+        });
+    });
+</script>
+
+</html>

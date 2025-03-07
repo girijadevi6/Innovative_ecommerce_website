@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Item</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #764b1a, #c0a696);
+            color: #003135;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #d6c9ba;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .modal-content {
+            background: linear-gradient(to right, #8e5a26, #c0a696);
+            padding: 60px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            max-width: 700px;
+            margin: auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #4e2e0a;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #754F23;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: linear-gradient(to right, #754F23, #B88E2F);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: linear-gradient(to right, #a98226, #613f18);
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #3d250a;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+            color: #964734;
+        }
+    </style>
+</head>
+<body>
+    <div class="modal">
+        <div class="modal-content">
+            <h1>Add New Item</h1>
+            <form action="/add" method="POST">
+                <label for="name">Item Name:</label>
+                <input type="text" id="name" name="name" required><br>
+            
+                <label for="price">Price:</label>
+                <input type="number" id="price" name="price" required><br>
+            
+                <label for="available_pieces">Available Pieces:</label>
+                <input type="number" id="available_pieces" name="available_pieces" required><br>
+            
+                <label for="image_url">Image URL:</label>
+                <input type="text" id="image_url" name="image_url"><br>
+            
+                <label for="category">Category:</label>
+                <select id="category" name="category" required>
+                    <option value="Men's Fashion">Men's Fashion</option>
+                    <option value="Women's Fashion">Women's Fashion</option>
+                    <option value="Grocery">Grocery</option>
+                    <option value="Beauty">Beauty</option>
+                    <option value="Sports">Sports</option>
+                </select><br>
+            
+                <button type="submit">Add Item</button>
+            </form>    
+            <a href="/" class="back-link" style="color: #311c04;text-decoration: none;"><b>Back to Home</b></a>
+        </div>
+    </div>
+</body>
+</html>

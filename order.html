@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Item</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: white;
+            color: #003135;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: linear-gradient(to bottom, #FBE6DA, #A87B4D);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        h1 {
+            color: #754F23;
+        }
+        
+        img {
+            max-width: 300px;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+        
+        p {
+            font-size: 18px;
+            color:rgb(88, 53, 6) ;
+        }
+        
+        form {
+            margin-top: 20px;
+        }
+        
+        input[type="number"] {
+            width: 60px;
+            padding: 5px;
+            text-align: center;
+            border: 1px solid #754F23;
+            border-radius: 5px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background-color: #964734;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        button:hover {
+            background-color: #B77A4A;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ item['name'] }}</h1>
+        <img src="{{ item['image_url'] }}" alt="{{ item['name'] }}">
+        <p><strong>Price:</strong> ₹{{ item['price'] }}</p>
+        <p><strong>Available Stock:</strong> {{ item['available_pieces'] }}</p>
+    
+        <form method="POST">
+            <label for="quantity">Enter Quantity:</label>
+            <input type="number" id="quantity" name="quantity" min="1" max="{{ item['available_pieces'] }}" required>
+            <br><br>
+            <button type="submit">Place Order</button>
+        </form>
+    </div>
+    <a href="/" class="btn" style="color: #311c04;text-decoration: none;">&#8592; Back to Home</a>
+</body>
+</html>

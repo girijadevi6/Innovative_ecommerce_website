@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: white;
+            color: #003135;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: linear-gradient(to bottom, #FBE6DA, #A87B4D);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        h2 {
+            color: #754F23;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            color: #754F23;
+        }
+        
+        th {
+            background-color: #964734;
+            color: white;
+            font-weight: bold;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #FBE6DA;
+        }
+        
+        a {
+            text-decoration: none;
+            color: #0FA4AF;
+            font-weight: bold;
+        }
+        
+        a:hover {
+            color: #964734;
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="btn" style="color: #311c04;text-decoration: none;">&#8592; Back to Home</a>
+    <div class="container">
+        <h2>Recipe Results</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Recipe Name</th>
+                    <th>Preparation Time (mins)</th>
+                    <th>Ingredients</th>
+                    <th>Instructions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for recipe in recipes %}
+                <tr>
+                    <td>{{ recipe.name }}</td>
+                    <td>{{ recipe.prep_time }}</td>
+                    <td>{{ recipe.ingredients | safe }}</td>
+                    <td>{{ recipe.instructions }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

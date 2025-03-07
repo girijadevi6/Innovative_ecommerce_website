@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Trending Shorts</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: white;
+            color: #003135;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        #shortsSection {
+            overflow-y: scroll;
+            max-height: 80vh;
+            padding: 10px;
+            border: 1px solid #ddd;
+            scroll-snap-type: y mandatory;
+        }
+
+        .short {
+            margin-bottom: 20px;
+            scroll-snap-align: start;
+            text-align: center;
+        }
+
+        .short video {
+            width: 360px;
+            height: 500px;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .short a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #964734;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .short a:hover {
+            background-color: #754F23;
+        }
+    </style>
+</head>
+<body>
+    <h1>All Trending Shorts</h1>
+    <div id="shortsSection">
+        {% for trend in trends %}
+        <div class="short {% if loop.first %}active{% endif %}">
+            <video controls muted poster="{{ trend['thumbnail_url'] }}">
+                <source src="{{ trend['video_url'] }}" type="video/mp4">
+            </video>
+            <a href="{{ trend['item_link'] }}" target="_blank">{{ trend['item_name'] }}</a>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <script>
+       document.addEventListener("DOMContentLoaded", () => {
+        const shorts = document.querySelectorAll(".short video");
+
+        shorts.forEach((video) => {
+            video.addEventListener("play", () => {
+                const videoUrl = video.querySelector("source").src;
+
+                fetch("/update_views", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ video_url: videoUrl })
+                });
+            });
+        });
+
+        window.addEventListener("scroll", () => {
+            shorts.forEach((video) => {
+                const rect = video.getBoundingClientRect();
+                if (rect.top >= 0 && rect.bottom <= window.innerHeight) {
+                    video.play();
+                } else {
+                    video.pause();
+                }
+            });
+        });
+    });
+    </script>
+</body>
+</html>

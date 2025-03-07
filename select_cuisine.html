@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Cuisine</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: white;
+            color: #003135;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .modal-dialog {
+            max-width: 700px;
+        }
+
+        .modal-title, .modal-header {
+            text-align: center;
+        }
+
+        .dropdown-menu {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .dropdown-toggle {
+            width: 100%;
+            text-align: center;
+        }
+
+        .cuisine-button {
+            margin: 10px;
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            background-color: #964734;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+        .cuisine-button:hover {
+            background-color: #754F23;
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+<div class="modal fade show" id="cuisineModal" tabindex="-1" aria-labelledby="cuisineModalLabel" aria-hidden="true" style="display: block;">
+    <a href="/" class="btn" style="text-decoration: none;color: #422708;">&#8592; Back to Home</a>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cuisineModalLabel">Select Cuisine</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="dropdown mb-4">
+                    <button class="btn dropdown-toggle w-100" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        Choose Cuisine
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        {% for cuisine in cuisines %}
+                        <form action="/select_courses" method="POST">
+                            <input type="hidden" name="cuisine" value="{{ cuisine }}">
+                            <li><button class="dropdown-item" type="submit">{{ cuisine }}</button></li>
+                        </form>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="button-container">
+                    {% for cuisine in cuisines %}
+                    <form action="/select_courses" method="POST" style="display: inline;">
+                        <input type="hidden" name="cuisine" value="{{ cuisine }}">
+                        <button type="submit" class="cuisine-button">{{ cuisine }}</button>
+                    </form>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
